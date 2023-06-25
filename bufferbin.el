@@ -3,7 +3,7 @@
 ;; Copyright (C) 2023 Ryan Walsh
 
 ;; Author: Ryan Walsh <blueridge-data@github>
-;; Package-Requires: (emacs "26.1")
+;; Package-Requires: ((emacs "26.1"))
 ;; Homepage: https://github.com/blueridge-data
 ;; Version: 1.0
 
