@@ -1,0 +1,99 @@
+* Contents
+** [[#Features][Features]]
+
+* Features
+
+Bufferbin is a small tool to provide visibility and control over buffers.  Using Treemacs as inspiration, it resides in a side-window that lists available buffers and enables mouse-movements to open them in selected windows.
+
+There are two ways to open buffers:
+1.  Single click on the buffer name, then single click in the desired window, or
+2.  Drag the buffer name from the Bufferbin to the desired window.
+
+* Quick Start
+
+Install the Bufferbin package, then type ~M-x bufferbin~ to initialize and open the tool.
+
+The following keymaps are provided by default for the Bufferbin window:
+
+| Key           | Action          | Description                                         |
+|---------------+-----------------+-----------------------------------------------------|
+| q             | Bury Bufferbin  | Hide the Bufferbin window, but keep the tool active |
+| k             | Close Bufferbin | Close the Bufferbin tool completely                 |
+| f             | Add filter      | Add a regex filter to the Bufferbin list            |
+| r             | Reset filter    | Remove current filters                              |
+| RET           | Refresh list    | Manually refresh list of buffers                    |
+
+Then, to open a buffer with the mouse:
+
+| Option 1 (two mouse clicks) |                                   |
+|-----------------------------+-----------------------------------|
+| First mouse click           | Select buffer to open             |
+| Second mouse click          | Select window and open the buffer |
+|                             |                                   |
+
+| Option 2 (mouse drag) |                                            |
+|-----------------------+--------------------------------------------|
+| Mouse drag            | Click on buffer and drag to desired window |
+
+* Details
+
+Bufferbin is designed for users that prefer visiblity over existing buffers and the ability to quickly open them with the mouse.  The tool does not attempt to bind buffers to specific windows and 'tabify' them like VS Code.  Instead, it provides flexibility to assign buffers to any window, as necessary.  Bufferbin's side-window can also be buried when screen real-estate becomes precious and easily revealed again with a simple key binding.
+
+** Fontfaces
+Bufferbin assigns fontfaces to buffers based on their major mode.  See additional details on ~bufferbin-mode-fonts~ in the Configuration section below.
+
+** Ignore
+Bufferbin can ignore buffers based on Regular Expressions.  For instance, buffers beginning with a space are ignored by default.  The user can add additional regex's to ~bufferbin-ignore-regex~ (see Configuration below).
+
+** Filtering
+Users can filter buffers in real-time using the ~f~ keybinding.  Simply enter a regular expression to reveal just the buffers that satisfy the regex.  You can add as many regex's as you want.  When done, just hit ~r~ to remove the filters.
+
+* Installation
+
+** Manual installaion via Github
+
+Download source code ~bufferbin.el~.
+Add the following to your config (with the appropriate path to the file):
+
+#+begin_src emacs-lisp
+  (load "bufferbin.el")
+  (global-set-key (kbd "C-c b") 'bufferbin)
+#+end_src
+
+** Installing with ~package-install~
+
+~M-x package-install RET bufferbin RET~
+
+Then add the following to your config:
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-c b") 'bufferbin)
+#+end_src
+
+** Installing with ~use-package~
+
+#+begin_src emacs-lisp
+  (use-package bufferbin
+    :ensure t
+    :bind  (("C-c b" . bufferbin)))
+#+end_src
+
+* Configuration
+
+** Fontfaces
+
+To assign fontfaces to major modes, insert the following into your config and modify the alist accordingly (this is just an example).
+
+#+begin_src emacs-lisp
+  (add-to-list 'bufferbin-mode-fonts '(c-mode . gnus-header-content)
+  (add-to-list 'bufferbin-mode-fonts '(org-mode . font-lock-type-face))
+  (add-to-list 'bufferbin-mode-fonts '(magit-status-mode . font-lock-comment-face))
+#+end_src
+
+** Ignore List
+
+Similarly, you can add regex's to the ignore list like this:
+
+#+begin_src emacs-lisp
+  ;; ignore anything beginning with an asterix
+  (add-to-list 'bufferbin-ignore-regex '("^*")
+#+end_src
