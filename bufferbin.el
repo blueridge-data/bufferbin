@@ -122,10 +122,10 @@
 (defun bufferbin-get-window ()
   "Get the window in which to display buffer."
   (interactive)
-  (setq new-event (read-event "Click window to open buffer"))
-  (while (not (eq 'mouse-1 (elt new-event 0)))
-	(setq new-event (read-event "Click window to open buffer")))
-  (car (car (cdr new-event))))
+  (let ((new-event (read-event "Click window to open buffer")))
+    (while (not (eq 'mouse-1 (elt new-event 0)))
+      (setq new-event (read-event "Click window to open buffer")))
+    (car (car (cdr new-event)))))
 
 (defun bufferbin-visit-buffer (selected-buf selected-win)
   "Switch to SELECTED-WIN and and display SELECTED-BUF."
@@ -156,10 +156,10 @@
   (when (eq 'drag-mouse-1 (elt event 0))
 	(let* ((info1 (elt (cdr event) 0))
 		   (info2 (elt (cdr event) 1))
-		   (source-window (elt info1 0))
+		   ;; (source-window (elt info1 0))
 		   (target-window (elt info2 0))
-		   (source-pos (elt info1 1))
-		   (target-pos (elt info2 1)))
+		   (source-pos (elt info1 1)))
+		   ;; (target-pos (elt info2 1)))
       (if (< source-pos (point-max))
           (bufferbin-visit-buffer (bufferbin-get-buffer) target-window)))))
 
