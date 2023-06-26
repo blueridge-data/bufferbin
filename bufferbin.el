@@ -47,7 +47,7 @@
 (defcustom bufferbin-direction 'left
   "The side of the screen to display pop-up window."
   :type '(choice (const left)
-		 (const right))
+         (const right))
   :group 'bufferbin)
 
 (defcustom bufferbin-buffer-name "*Buffer-Bin*"
@@ -151,7 +151,7 @@
 			(bufferbin-visit-buffer selected-buf selected-win))))))
 
 (defun bufferbin-dragleftclick-action (event)
-  "Get buffer at point when EVENT is 'drag-left-click' and display in a selected window."
+  "Display buffer at point in a selected window from EVENT."
   (interactive "e")
   (when (eq 'drag-mouse-1 (elt event 0))
 	(let* ((info1 (elt (cdr event) 0))
@@ -229,7 +229,7 @@
  (with-current-buffer bufferbin-buffer-name
     (setq buffer-read-only nil)
     (erase-buffer)
-    (dolist (item (sort (mapcar 'buffer-name (buffer-list)) 'string<))
+    (dolist (item (sort (mapcar #'buffer-name (buffer-list)) 'string<))
       (if (and (not (bufferbin-ignored-p item))
                (bufferbin-filtered-p item))
           (bufferbin-writeln item (bufferbin-get-fontface item))))
@@ -245,7 +245,7 @@
 (defun bufferbin-delayed-refresh ()
   "Allow 'buffer-modified-p' to update after 'first-change-hook' is called."
   (interactive)
-  (run-at-time "1 sec" nil 'bufferbin-refresh-list))
+  (run-at-time "1 sec" nil #'bufferbin-refresh-list))
        
 ;; ====================
 ;; Window Management
@@ -278,15 +278,15 @@
 
 (defun bufferbin-add-hooks ()
   "Add hooks to update buffer list appropriately."
-  (add-hook 'buffer-list-update-hook 'bufferbin-refresh-list)
-  (add-hook 'after-save-hook 'bufferbin-refresh-list)
-  (add-hook 'first-change-hook 'bufferbin-delayed-refresh))
+  (add-hook 'buffer-list-update-hook #'bufferbin-refresh-list)
+  (add-hook 'after-save-hook #'bufferbin-refresh-list)
+  (add-hook 'first-change-hook #'bufferbin-delayed-refresh))
 
 (defun bufferbin-remove-hooks ()
   "Remove hooks when bufferbin is closed."
-  (remove-hook 'buffer-list-update-hook 'bufferbin-refresh-list)
-  (remove-hook 'after-save-hook 'bufferbin-refresh-list)
-  (remove-hook 'first-change-hook 'bufferbin-delayed-refresh))
+  (remove-hook 'buffer-list-update-hook #'bufferbin-refresh-list)
+  (remove-hook 'after-save-hook #'bufferbin-refresh-list)
+  (remove-hook 'first-change-hook #'bufferbin-delayed-refresh))
 
 (defun bufferbin-init ()
   "Initialize buffer bin upon first start."
