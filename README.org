@@ -1,9 +1,7 @@
 [[https://melpa.org/#/bufferbin][file:https://melpa.org/packages/bufferbin-badge.svg]]
 
 * Bufferbin
-
 [[file:bufferbin.png]]
-
 Bufferbin is a small tool to provide visibility and control over buffers.  Using Treemacs as inspiration, it resides in a side-window that lists available buffers and enables mouse-movements to open them in selected windows.
 
 There are two ways to open buffers:
