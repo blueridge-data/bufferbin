@@ -4,7 +4,7 @@
 
 ;; Author: Ryan Walsh <blueridge-data@github>
 ;; Package-Requires: ((emacs "26.1"))
-;; Homepage: https://github.com/blueridge-data
+;; Homepage: https://github.com/blueridge-data/bufferbin
 ;; Version: 1.0
 
 ;; This program is free software; you can redistribute it and/or modify
