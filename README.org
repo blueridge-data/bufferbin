@@ -4,13 +4,13 @@
 [[file:bufferbin.png]]
 Bufferbin is a small tool to provide visibility and control over buffers.  Using Treemacs as inspiration, it resides in a side-window that lists available buffers and enables mouse-movements to open them in selected windows.
 
-There are two ways to open buffers:
-1.  Single click on the buffer name, then single click in the desired window, or
-2.  Drag the buffer name from the Bufferbin to the desired window.
-
 * Quick Start
 
 Install the Bufferbin package, then type ~M-x bufferbin~ to initialize and open the tool.
+
+There are two ways to open buffers:
+1.  Single click on the buffer name, then single click in the desired window, or
+2.  Drag the buffer name from the Bufferbin to the desired window.
 
 The following keymaps are provided by default for the Bufferbin window:
 
@@ -22,21 +22,10 @@ The following keymaps are provided by default for the Bufferbin window:
 | r             | Reset filter    | Remove current filters                              |
 | RET           | Refresh list    | Manually refresh list of buffers                    |
 
-Then, to open a buffer with the mouse:
-
-| Option 1 (two mouse clicks) |                                   |
-|-----------------------------+-----------------------------------|
-| First mouse click           | Select buffer to open             |
-| Second mouse click          | Select window and open the buffer |
-|                             |                                   |
-
-| Option 2 (mouse drag) |                                            |
-|-----------------------+--------------------------------------------|
-| Mouse drag            | Click on buffer and drag to desired window |
 
 * Details
 
-Bufferbin is designed for users that prefer visiblity over existing buffers and the ability to quickly open them with the mouse.  The tool does not attempt to bind buffers to specific windows and 'tabify' them like VS Code.  Instead, it provides flexibility to assign buffers to any window, as necessary.  Bufferbin's side-window can also be buried when screen real-estate becomes precious and easily revealed again with a simple key binding.
+Bufferbin is designed for users that enjoy having visiblity of existing buffers and the ability to quickly open them with the mouse.  The tool does not attempt to bind buffers to specific windows and 'tabify' them like VS Code.  Instead, it provides flexibility to assign buffers to any window, as necessary.  Bufferbin's side-window can also be buried when screen real-estate becomes precious and easily revealed again with a simple key binding.
 
 ** Fontfaces
 Bufferbin assigns fontfaces to buffers based on their major mode.  See additional details on ~bufferbin-mode-fonts~ in the Configuration section below.
@@ -95,4 +84,17 @@ Similarly, you can add regex's to the ignore list like this:
 #+begin_src emacs-lisp
   ;; ignore anything beginning with an asterix
   (add-to-list 'bufferbin-ignore-regex '("^*")
+#+end_src
+
+* Sample config file
+#+begin_src emacs-lisp
+  (use-package bufferbin
+    :ensure t
+    :bind  (("C-c b" . bufferbin))
+    :config
+      (dolist (fonts '((c-mode . gnus-header-content)
+                       (org-mode . font-lock-type-face)
+                       (magit-status-mode . font-lock-comment-face)
+                       (emacs-lisp-mode . font-lock-variable-name-face)))
+        (add-to-list 'bufferbin-mode-fonts fonts)))
 #+end_src
